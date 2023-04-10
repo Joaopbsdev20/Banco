@@ -1,0 +1,195 @@
+<html>
+
+<head>
+
+	<script>
+		var saldo = 100.5; //Float
+
+		function inicio() {
+
+			var password = 3589;
+			var nome = prompt(`Informe o seu nome: `);
+			alert(`Olá ${nome} é um prazer ter você por aqui!`);
+			var a = parseInt(prompt('Selecione uma opção 1- Saldo 2- Extrato 3- Saque 4- Depósito 5- Fazer transferência 6- Sair'));
+
+
+			switch (a) {
+				case 1:
+					var colocarsenha = parseInt(prompt("Digite sua senha: "))
+					if (password == colocarsenha) {
+						ver_saldo();
+					}
+					else {
+						window.alert("Senha errada");
+						inicio();
+					}
+					break;
+				case 2:
+					var colocarsenha = parseInt(prompt("Digite sua senha: "))
+					if (password == colocarsenha) {
+						extrato();
+					}
+					else {
+						window.alert("Senha errada");
+						inicio();
+						break;
+					}
+				case 3:
+					var colocarsenha = parseInt(prompt("Digite sua senha: "))
+					if (password == colocarsenha) {
+						fazer_saque();
+					}
+					else {
+						window.alert("Senha errada");
+						inicio();
+						break;
+					}
+				case 4:
+					var colocarsenha = parseInt(prompt("Digite sua senha: "))
+					if (password == colocarsenha) {
+						fazer_deposito();
+					}
+					else {
+						window.alert("Senha errada");
+						inicio();
+						break;
+					}
+				case 5:
+				var colocarsenha = parseInt(prompt("Digite sua senha: "))
+					if (password == colocarsenha) {
+						fazer_transferencia();
+					}
+					else {
+						window.alert("Senha errada");
+						inicio();					
+					break;
+				}
+				case 6:
+					sair();
+					break;
+				default:
+					window.alert("Não é uma opção valida");
+					break;
+			}
+		}
+
+		function senhaSubmetida(event) {
+			event.preventDefault(); // impede que o formulário seja enviado
+
+			// captura o valor da senha
+			var senha = document.getElementById("senha").value;
+
+			// faça algo com a senha
+			alert("Sua senha é: " + senha);
+		}
+
+		function ver_saldo() {
+
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			// Not a Number
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número:');
+				fazer_deposito();
+			}
+			else if (deposito <= 0) {
+				alert("Operação não autorizada");
+				fazer_deposito();
+			}
+			else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_saque() {
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else if (saldo < saque) {
+				alert("Operação não autorizada.");
+				fazer_saque();
+			}
+			else if (saque <= 0) {
+				alert("Operação não autorizada.");
+				fazer_saque();
+			}
+			else {
+				saldo -= saque;
+
+				ver_saldo();
+			}
+		}
+
+		function erro() {
+			var erro = ("Por favor, informe um número entre 1 e 6")
+			alert(erro);
+
+			inicio();
+		}
+
+		function extrato() {
+			var extrato = ("Conta de luz: 200R$, Atacadão: 500R$, HBO: 30R$");
+			alert(extrato);
+		}
+
+		function fazer_transferencia() {
+			let transferência = parseFloat(prompt("Digite o número da conta para transferência: "))
+
+			if (isNaN(transferência) || transferência === '') {
+				alert('Por favor, informe um número:');
+				fazer_transferencia();
+			}
+			else if (transferência <= 0) {
+				alert("Operação não autorizada.");
+				fazer_saque();
+			}
+			else {
+				var valort = parseFloat(prompt("Informe o valor da transferência: "));
+
+				if (valort <= 0) {
+					alert("Operação não autorizada, digite um valor válido: ");
+				}
+				else if (valort < saldo) {
+					saldo -= valort;
+					ver_saldo();
+				}
+			}
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				window.close();
+			}
+			else if (confirma) {
+				alert(`${nome}, foi um prazer ter você por aqui!`)
+			}
+			else {
+				inicio();
+			}
+		}
+
+
+
+
+
+		inicio();
+	</script>
+</head>
+
+<body>
+	<form onsubmit="senhaSubmetida(event)">
+		<label for="senha">Digite sua senha:</label>
+		<input type="password" id="senha" name="senha">
+		<button type="submit">Enviar</button>
+	</form>
+
+</body>
+
+</html>
